@@ -18,7 +18,6 @@
       <input v-model="newPlayerName" type="text" placeholder="Enter player name" />
       <button @click="addPlayer">
         <i class="far fa-plus mr-2"></i>
-        Add
       </button>
     </div>
 
