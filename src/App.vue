@@ -16,26 +16,26 @@
     <div class="add-player">
       <label>Player:</label>
       <input v-model="newPlayerName" type="text" placeholder="Enter player name" />
-      <button @click="addPlayer">
+      <button type="button" @click="addPlayer">
         <i class="ti-plus mr-2"></i>
       </button>
     </div>
 
     <div class="middle-section">
       <div class="reset-section">
-        <button @click="resetGame" class="btn btn-reset">
+        <button type="button" @click="resetGame" class="btn btn-reset">
           <i class="ti-reload mr-2"></i> Game
         </button>
       </div>
       <div class="reset-section">
-        <button @click="resetPoint" class="btn btn-reset-point">
+        <button type="button" @click="resetPoint" class="btn btn-reset-point">
           <i class="ti-reload mr-2"></i> Point
         </button>
       </div>
 
       <!-- Nút xuất Excel -->
       <div class="export-section">
-        <button @click="exportToExcel" class="btn btn-export">
+        <button type="button" @click="exportToExcel" class="btn btn-export">
           <i class="ti-download mr-2"></i> Excel
         </button>
       </div>
@@ -43,7 +43,7 @@
 
     <ul class="player-list">
       <li v-for="(player, index) in players" :key="index" class="player-item">
-        <button class="btn btn-delete" @click="deletePlayer(index)">
+        <button type="button" class="btn btn-delete" @click="deletePlayer(index)">
           <i class="ti-close"></i>
         </button>
         <span class="player-name">{{ player.name }}</span>
@@ -59,8 +59,10 @@
           ></span
         >
         <div class="btn-group">
-          <button class="btn btn-add" @click="addPoints(index)"><i class="ti-plus"></i></button>
-          <button class="btn btn-subtract" @click="subtractPoints(index)">
+          <button type="button" class="btn btn-add" @click="addPoints(index)">
+            <i class="ti-plus"></i>
+          </button>
+          <button type="button" class="btn btn-subtract" @click="subtractPoints(index)">
             <i class="ti-minus"></i>
           </button>
         </div>
@@ -117,7 +119,8 @@ const addPlayer = () => {
 }
 
 // Cộng điểm
-const addPoints = (index) => {
+const addPoints = (index, e) => {
+  e.preventDefault()
   let player = players.value[index]
   const point = player.pointStep ? player.pointStep : pointStep.value
   player.points += Number(point)
@@ -125,7 +128,8 @@ const addPoints = (index) => {
 }
 
 // Trừ điểm
-const subtractPoints = (index) => {
+const subtractPoints = (index, e) => {
+  e.preventDefault()
   let player = players.value[index]
   const point = player.pointStep ? player.pointStep : pointStep.value
   player.points -= Number(point)
