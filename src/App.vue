@@ -119,8 +119,7 @@ const addPlayer = () => {
 }
 
 // Cộng điểm
-const addPoints = (index, e) => {
-  e.preventDefault()
+const addPoints = (index) => {
   let player = players.value[index]
   const point = player.pointStep ? player.pointStep : pointStep.value
   player.points += Number(point)
@@ -128,8 +127,7 @@ const addPoints = (index, e) => {
 }
 
 // Trừ điểm
-const subtractPoints = (index, e) => {
-  e.preventDefault()
+const subtractPoints = (index) => {
   let player = players.value[index]
   const point = player.pointStep ? player.pointStep : pointStep.value
   player.points -= Number(point)
