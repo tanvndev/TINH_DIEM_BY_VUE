@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <SnowEffect />
     <h1>APP TINH DIEM</h1>
 
     <div class="settings">
@@ -78,6 +79,7 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import SnowEffect from '@/components/SnowEffect.vue'
 import * as XLSX from 'xlsx'
 
 // Khởi tạo các biến
@@ -221,12 +223,19 @@ onUnmounted(() => {
 <style scoped>
 /* Căn chỉnh tổng thể */
 .app-container {
+  position: relative;
   max-width: 600px;
   margin: 0 auto;
   padding: 12px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  background: #fffced
+    url(//cdnv2.tgdd.vn/webmwg/2024/ContentMwg/images/tet/tgdd/2025/am/bg-main.png) no-repeat;
+  background-position: center bottom;
+  background-size: 100%;
+  background-attachment: fixed;
+  height: 100vh;
 }
 /* Tiêu đề */
 h1 {
@@ -299,7 +308,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 6px;
   margin-bottom: 10px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -331,6 +340,7 @@ h1 {
 .btn-add {
   background-color: #007bff;
   color: white;
+  padding: 12px 14px;
 }
 
 .btn-add:hover {
@@ -340,10 +350,40 @@ h1 {
 .btn-subtract {
   background-color: #e53935;
   color: white;
+  padding: 12px 14px;
 }
 
 .btn-subtract:hover {
   background-color: #c62828;
+}
+
+.btn-add,
+.btn-subtract {
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn-add:active,
+.btn-subtract:active {
+  animation: flash 0.3s ease;
+}
+
+@keyframes flash {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
 }
 
 .btn-delete {
@@ -415,5 +455,8 @@ h1 {
   width: 35px;
   margin-left: 20px;
   text-align: right;
+}
+.header-left {
+  width: 100%;
 }
 </style>
