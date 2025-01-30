@@ -12,7 +12,7 @@
 
   // Hàm tạo hoa đào
   const createFlower = () => {
-    const size = Math.random() * 3 + 10; // Kích thước ngẫu nhiên của hoa (giới hạn từ 10 đến 25)
+    const size = Math.random() * 1 + 8; // Kích thước ngẫu nhiên của hoa (giới hạn từ 10 đến 25)
     const speed = Math.random() * 1 + 0.5; // Tốc độ rơi
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight;
