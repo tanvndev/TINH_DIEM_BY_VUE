@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <SnowEffect />
     <h1>APP TINH DIEM</h1>
 
     <div class="settings">
@@ -387,14 +386,11 @@ h1 {
 }
 
 .btn-delete {
-  background-color: #ff9800;
-  color: white;
-  padding: 6px 8px;
+  color: red;
+  padding: 4px;
+  background-color: transparent;
 }
 
-.btn-delete:hover {
-  background-color: #f57c00;
-}
 .btn-group {
   display: flex;
   gap: 5px;
