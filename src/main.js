@@ -1,5 +1,5 @@
 import './assets/main.css'
-import './assets/icons/fontawesome-5-pro/css/all.css'
+import './assets/icons/themify-icons/themify-icons.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

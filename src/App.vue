@@ -17,21 +17,26 @@
       <label>Player:</label>
       <input v-model="newPlayerName" type="text" placeholder="Enter player name" />
       <button @click="addPlayer">
-        <i class="far fa-plus mr-2"></i>
+        <i class="ti-plus mr-2"></i>
       </button>
     </div>
 
     <div class="middle-section">
       <div class="reset-section">
         <button @click="resetGame" class="btn btn-reset">
-          <i class="far fa-sync mr-2"></i> Reset Game
+          <i class="ti-reload mr-2"></i> Game
+        </button>
+      </div>
+      <div class="reset-section">
+        <button @click="resetPoint" class="btn btn-reset-point">
+          <i class="ti-reload mr-2"></i> Point
         </button>
       </div>
 
       <!-- Nút xuất Excel -->
       <div class="export-section">
         <button @click="exportToExcel" class="btn btn-export">
-          <i class="far fa-download mr-2"></i> Export to Excel
+          <i class="ti-download mr-2"></i> Excel
         </button>
       </div>
     </div>
@@ -39,9 +44,12 @@
     <ul class="player-list">
       <li v-for="(player, index) in players" :key="index" class="player-item">
         <button class="btn btn-delete" @click="deletePlayer(index)">
-          <i class="far fa-times"></i>
+          <i class="ti-close"></i>
         </button>
         <span class="player-name">{{ player.name }}</span>
+        <div class="player-point-step">
+          <input type="number" v-model.number="player.pointStep" />
+        </div>
         <span class="player-points"
           >Point:
           <span
@@ -51,9 +59,9 @@
           ></span
         >
         <div class="btn-group">
-          <button class="btn btn-add" @click="addPoints(index)"><i class="far fa-plus"></i></button>
+          <button class="btn btn-add" @click="addPoints(index)"><i class="ti-plus"></i></button>
           <button class="btn btn-subtract" @click="subtractPoints(index)">
-            <i class="far fa-minus"></i>
+            <i class="ti-minus"></i>
           </button>
         </div>
       </li>
@@ -69,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import * as XLSX from 'xlsx'
 
 // Khởi tạo các biến
@@ -78,7 +86,8 @@ const newPlayerName = ref('')
 const players = ref(loadPlayers())
 // Tính tổng điểm của tất cả người chơi
 const totalPoints = computed(() => {
-  return players.value.reduce((sum, player) => sum + player.points, 0)
+  const sum = players.value.reduce((sum, player) => sum + player.points, 0)
+  return sum !== 0 ? -sum : sum // Nếu sum khác 0 thì đổi dấu, nếu 0 thì giữ nguyên
 })
 
 // Hàm lưu dữ liệu vào localStorage
@@ -109,13 +118,17 @@ const addPlayer = () => {
 
 // Cộng điểm
 const addPoints = (index) => {
-  players.value[index].points += pointStep.value
+  let player = players.value[index]
+  const point = player.pointStep ? player.pointStep : pointStep.value
+  player.points += Number(point)
   savePlayers()
 }
 
 // Trừ điểm
 const subtractPoints = (index) => {
-  players.value[index].points -= pointStep.value
+  let player = players.value[index]
+  const point = player.pointStep ? player.pointStep : pointStep.value
+  player.points -= Number(point)
   savePlayers()
 }
 
@@ -165,8 +178,44 @@ const exportToExcel = () => {
   XLSX.writeFile(wb, filename + '.xlsx')
 }
 
+const resetPoint = () => {
+  const password = prompt('Để reset điểm của tất cả, vui lòng nhập mật mã:')
+  if (password === '2001') {
+    const confirmReset = window.confirm(
+      'Bạn có chắc chắn muốn reset điểm của tất cả người chơi không?',
+    )
+    if (confirmReset) {
+      players.value.forEach((player) => {
+        player.points = 0
+      })
+      savePlayers()
+      alert('Tất cả điểm đã được reset về 0.')
+    }
+  } else {
+    alert('Mật mã không chính xác! Không thể reset game.')
+  }
+}
+
 // Theo dõi biến players, mỗi khi thay đổi sẽ lưu vào localStorage
 watch(players, savePlayers, { deep: true })
+
+let lastTouchEnd = 0
+
+const preventDoubleTapZoom = (event) => {
+  const now = new Date().getTime()
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault() // Ngăn chặn zoom khi double-tap
+  }
+  lastTouchEnd = now
+}
+
+onMounted(() => {
+  document.addEventListener('touchend', preventDoubleTapZoom, { passive: false })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('touchend', preventDoubleTapZoom)
+})
 </script>
 
 <style scoped>
@@ -300,6 +349,7 @@ h1 {
 .btn-delete {
   background-color: #ff9800;
   color: white;
+  padding: 6px 8px;
 }
 
 .btn-delete:hover {
@@ -346,7 +396,24 @@ h1 {
   background-color: #45a049;
   color: white;
 }
+.btn-reset-point {
+  background-color: #ff9800;
+  color: white;
+}
 .mr-2 {
   margin-right: 2px;
+}
+.player-point-step {
+  flex: 1;
+}
+.player-point-step input {
+  flex: 1;
+  padding: 8px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 35px;
+  margin-left: 20px;
+  text-align: right;
 }
 </style>
