@@ -78,7 +78,6 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import SnowEffect from '@/components/SnowEffect.vue'
 import * as XLSX from 'xlsx'
 
 // Khởi tạo các biến
