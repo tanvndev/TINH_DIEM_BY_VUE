@@ -209,6 +209,11 @@ const preventDoubleTapZoom = (event) => {
   lastTouchEnd = now
 }
 
+// Hàm ngăn zoom
+const preventZoom = (event) => {
+  event.preventDefault()
+}
+
 // Hàm vô hiệu hóa zoom
 const disableZoom = () => {
   // Vô hiệu hóa sự kiện zoom khi dùng chuột (wheel)
@@ -220,11 +225,6 @@ const disableZoom = () => {
   // Vô hiệu hóa sự kiện zoom khi dùng chạm (touch)
   window.addEventListener('touchstart', preventZoom, { passive: false })
   window.addEventListener('touchmove', preventZoom, { passive: false })
-}
-
-// Hàm ngăn zoom
-const preventZoom = (event) => {
-  event.preventDefault()
 }
 
 onMounted(() => {
