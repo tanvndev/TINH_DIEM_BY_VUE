@@ -223,8 +223,7 @@ const disableZoom = () => {
   window.addEventListener('gesturestart', preventZoom, { passive: false })
 
   // Vô hiệu hóa sự kiện zoom khi dùng chạm (touch)
-  window.addEventListener('touchstart', preventZoom, { passive: false })
-  window.addEventListener('touchmove', preventZoom, { passive: false })
+    window.addEventListener('touchmove', preventZoom, { passive: false })
 }
 
 onMounted(() => {
@@ -237,7 +236,6 @@ onUnmounted(() => {
   // Hủy bỏ các sự kiện khi component bị hủy bỏ
   window.removeEventListener('wheel', preventZoom)
   window.removeEventListener('gesturestart', preventZoom)
-  window.removeEventListener('touchstart', preventZoom)
   window.removeEventListener('touchmove', preventZoom)
 })
 </script>
