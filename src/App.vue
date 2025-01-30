@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import * as XLSX from 'xlsx'
 
 // Khởi tạo các biến
@@ -198,46 +198,6 @@ const resetPoint = () => {
 
 // Theo dõi biến players, mỗi khi thay đổi sẽ lưu vào localStorage
 watch(players, savePlayers, { deep: true })
-
-let lastTouchEnd = 0
-
-const preventDoubleTapZoom = (event) => {
-  const now = new Date().getTime()
-  if (now - lastTouchEnd <= 300) {
-    event.preventDefault() // Ngăn chặn zoom khi double-tap
-  }
-  lastTouchEnd = now
-}
-
-// Hàm ngăn zoom
-const preventZoom = (event) => {
-  event.preventDefault()
-}
-
-// Hàm vô hiệu hóa zoom
-const disableZoom = () => {
-  // Vô hiệu hóa sự kiện zoom khi dùng chuột (wheel)
-  window.addEventListener('wheel', preventZoom, { passive: false })
-
-  // Vô hiệu hóa sự kiện zoom trên màn hình cảm ứng (gesture)
-  window.addEventListener('gesturestart', preventZoom, { passive: false })
-
-  // Vô hiệu hóa sự kiện zoom khi dùng chạm (touch)
-    window.addEventListener('touchmove', preventZoom, { passive: false })
-}
-
-onMounted(() => {
-  document.addEventListener('touchend', preventDoubleTapZoom, { passive: false })
-  disableZoom() // Vô hiệu hóa zoom khi component được gắn vào DOM
-})
-
-onUnmounted(() => {
-  document.removeEventListener('touchend', preventDoubleTapZoom)
-  // Hủy bỏ các sự kiện khi component bị hủy bỏ
-  window.removeEventListener('wheel', preventZoom)
-  window.removeEventListener('gesturestart', preventZoom)
-  window.removeEventListener('touchmove', preventZoom)
-})
 </script>
 
 <style scoped>
