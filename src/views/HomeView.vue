@@ -4,7 +4,7 @@
   <div>
     <v-card rounded="lg">
       <v-card-title>
-        <v-img :height="150" cover rounded src="/assets/images/banner1.jpeg"></v-img>
+        <v-img :height="150" cover rounded src="/public/images/banner1.jpeg"></v-img>
       </v-card-title>
       <v-card-text>
         Xin chào, bạn đang xủ dụng ứng dụng được xây dựng bởi <strong>VŨ NGỌC TÂN</strong>.
