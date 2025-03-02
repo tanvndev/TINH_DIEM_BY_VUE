@@ -24,7 +24,7 @@
               Chơi cùng với bạn Chơi cùng với bạn Chơi cùng với bạn
             </p>
             <div class="bottom-item">
-              <v-chip variant="elevated" color="brown" size="small"> Chip </v-chip>
+              <v-chip variant="elevated" color="brown" size="x-small"> Chip </v-chip>
               <span>Lượt cuối cùng lúc 16:07 02/03</span>
             </div>
           </div>
