@@ -4,7 +4,7 @@
   <div>
     <v-card rounded="lg">
       <v-card-title>
-        <v-img :height="150" cover rounded src="/src/assets/images/banner1.jpeg"></v-img>
+        <v-img :height="150" cover rounded src="assets/images/banner1.jpeg"></v-img>
       </v-card-title>
       <v-card-text>
         Xin chào, bạn đang xủ dụng ứng dụng được xây dựng bởi <strong>VŨ NGỌC TÂN</strong>.
@@ -15,7 +15,7 @@
       </v-card-actions>
     </v-card>
     <h2>Lịch sử</h2>
-    <v-card link rounded="lg">
+    <v-card link rounded="lg" v-for="n in 10" :key="n" class="mb-4">
       <v-card-text class="card-text-custom">
         <div class="d-flex justify-space-between align-center">
           <div class="history-item">

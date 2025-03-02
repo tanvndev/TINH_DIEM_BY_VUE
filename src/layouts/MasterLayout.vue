@@ -6,7 +6,7 @@
         <slot />
       </main>
       <!-- Footer -->
-      <NavigationComponent />
+      <!-- <NavigationComponent /> -->
     </div>
   </div>
 </template>
@@ -18,8 +18,12 @@ import NavigationComponent from '@/components/NavigationComponent.vue'
 <style scoped>
 .main-content {
   padding: 16px;
-  height: calc(100vh - 56px);
+  max-height: calc(100vh);
+  /* max-height: calc(100vh - 56px); */
   overflow-y: auto;
   overflow-x: hidden;
+}
+.content-wrapper {
+  position: relative;
 }
 </style>
